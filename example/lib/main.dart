@@ -47,6 +47,7 @@ class _AutoScanExampleState extends State<AutoScanExample> {
               ),
         FlutterWebQrcodeScanner(
           cameraDirection: CameraDirection.back,
+          fit: CameraFit.cover,
           onGetResult: (result) {
             setState(() {
               _data = result;

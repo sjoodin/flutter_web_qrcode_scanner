@@ -11,6 +11,11 @@ enum CameraDirection {
   back,
 }
 
+enum CameraFit {
+  cover,
+  contain,
+}
+
 class FlutterWebQrcodeScanner extends StatefulWidget {
   const FlutterWebQrcodeScanner({
     Key? key,
@@ -23,6 +28,7 @@ class FlutterWebQrcodeScanner extends StatefulWidget {
     this.width,
     this.height,
     this.cameraDirection = CameraDirection.front,
+    this.fit = CameraFit.contain,
   }) : super(key: key);
 
   ///this class allow you to strart and stop camera by methods :>  startVideoStream() && stopVideoStream()
@@ -34,6 +40,7 @@ class FlutterWebQrcodeScanner extends StatefulWidget {
   final double? height;
 
   final CameraDirection cameraDirection;
+  final CameraFit fit;
 
   ///this function execute when qrcode image detected and decoded into String
   final void Function(String) onGetResult;
@@ -73,6 +80,10 @@ class _WebcamPageState extends State<FlutterWebQrcodeScanner> {
     _webcamVideoElement = VideoElement()
       ..style.width = "100%"
       ..style.height = "100%";
+    if (widget.fit == CameraFit.cover) {
+      _webcamVideoElement.style.objectFit = "cover";
+    }
+
     // ignore: undefined_prefixed_name
     ui.platformViewRegistry.registerViewFactory(
         'webcamVideoElement$_key', (int viewId) => _webcamVideoElement);
