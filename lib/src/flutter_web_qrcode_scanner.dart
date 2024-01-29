@@ -149,17 +149,17 @@ class _WebcamPageState extends State<FlutterWebQrcodeScanner> {
           if (widget.onPermissionDeniedError != null) {
             widget.onPermissionDeniedError!();
           } else {
-            if (kDebugMode) {
-              print(domError);
-            }
+            //if (kDebugMode) {
+            print(domError);
+            //}
           }
         } else {
           if (widget.onError != null) {
             widget.onError!(domError);
           } else {
-            if (kDebugMode) {
-              print(domError);
-            }
+            //if (kDebugMode) {
+            print(domError);
+            //}
           }
         }
       });
@@ -224,10 +224,10 @@ class _WebcamPageState extends State<FlutterWebQrcodeScanner> {
             }
           }
         } catch (e) {
-          if (kDebugMode) {
-            _stopDecoding = true;
-            print(e.toString());
-          }
+          //if (kDebugMode) {
+          //_stopDecoding = true;
+          print(e.toString());
+          //}
         }
       }
     }
