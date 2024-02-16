@@ -1,5 +1,4 @@
-import 'dart:typed_data';
-
+import 'package:cross_file/cross_file.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_web_qrcode_scanner/flutter_web_qrcode_scanner.dart';
 
@@ -14,7 +13,7 @@ class _FullExampleState extends State<FullExample> {
   late CameraController _controller;
   List<String> resultList = [];
   int resultSum = 0;
-  Uint8List? capturedImage;
+  XFile? capturedImage;
   @override
   void initState() {
     super.initState();
@@ -65,8 +64,9 @@ class _FullExampleState extends State<FullExample> {
                           data);
                       setSta(() {});
                     },
-                    onCaptureImage: (Uint8List imageAsBytes) {
-                      capturedImage = imageAsBytes;
+                    onCaptureImage: (XFile image) {
+                      _controller.stopVideoStream();
+                      capturedImage = image;
                       setSta(() {});
                       print("image captured");
                     },
@@ -78,9 +78,7 @@ class _FullExampleState extends State<FullExample> {
                     child: Center(
                       child: capturedImage == null
                           ? const Text("no image captured")
-                          : Image.memory(
-                              capturedImage!,
-                            ),
+                          : Image.network(capturedImage!.path),
                     ),
                   ),
                 ],

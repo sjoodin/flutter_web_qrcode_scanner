@@ -47,7 +47,7 @@ class FlutterWebQrcodeScanner extends StatefulWidget {
   ///stop video stream on getting first result
   final bool? stopOnFirstResult;
 
-  final Function(Uint8List imageAsBytes)? onCaptureImage;
+  final Function(XFile image)? onCaptureImage;
 
   /// *
   /// class DomException
@@ -203,9 +203,9 @@ class _WebcamPageState extends State<FlutterWebQrcodeScanner> {
           _controller.stopCaptureImage(); //so there won't be multiple images
           print('image with ${imageData.data.length} bytes');
           XFile file = XFile(_canvasElement.toDataUrl('image/jpeg', 1));
+          widget.onCaptureImage!(file);
           file.readAsBytes().then((value) {
             print('read image with ${value.length} bytes');
-            widget.onCaptureImage!(value);
           });
         }
 
