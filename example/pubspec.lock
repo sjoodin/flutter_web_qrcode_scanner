@@ -17,30 +17,6 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "2.1.1"
-  camera:
-    dependency: "direct main"
-    description:
-      name: camera
-      sha256: "7cc909460beb33ae8c86f3c7e7fb848177c646ea2572616c4c81c2a6413bbb0b"
-      url: "https://pub.dev"
-    source: hosted
-    version: "0.9.4+9"
-  camera_platform_interface:
-    dependency: transitive
-    description:
-      name: camera_platform_interface
-      sha256: becc5366c9806aa20ac09f459a1ef57997542d04e651d6bca0a5e1be388818ca
-      url: "https://pub.dev"
-    source: hosted
-    version: "2.1.5"
-  camera_web:
-    dependency: transitive
-    description:
-      name: camera_web
-      sha256: b4056a3e6b0857cf9c362d4a5bf5a1153dc793d4a1052805cffa896ff9e39d12
-      url: "https://pub.dev"
-    source: hosted
-    version: "0.2.1+1"
   characters:
     dependency: transitive
     description:
@@ -231,14 +207,6 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "2.1.2"
-  quiver:
-    dependency: transitive
-    description:
-      name: quiver
-      sha256: "616b691d1c8f5c53b7b39ce3542f6a25308d7900bf689d0210e72a644a10387e"
-      url: "https://pub.dev"
-    source: hosted
-    version: "3.0.1+1"
   sky_engine:
     dependency: transitive
     description: flutter
@@ -268,14 +236,6 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "2.1.2"
-  stream_transform:
-    dependency: transitive
-    description:
-      name: stream_transform
-      sha256: ed464977cb26a1f41537e177e190c67223dbd9f4f683489b6ab2e5d211ec564e
-      url: "https://pub.dev"
-    source: hosted
-    version: "2.0.0"
   string_scanner:
     dependency: transitive
     description:
