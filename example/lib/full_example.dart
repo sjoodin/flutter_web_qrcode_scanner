@@ -65,10 +65,9 @@ class _FullExampleState extends State<FullExample> {
                       setSta(() {});
                     },
                     onCaptureImage: (XFile image) {
-                      _controller.stopVideoStream();
                       capturedImage = image;
                       setSta(() {});
-                      print("image captured");
+                      print("image captured: ${image.path}");
                     },
                   ),
                   const SizedBox(width: 20),

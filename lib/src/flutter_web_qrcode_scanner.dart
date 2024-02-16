@@ -200,7 +200,7 @@ class _WebcamPageState extends State<FlutterWebQrcodeScanner> {
 
       if (imageData is ImageData) {
         if (_controller.isCapturingImage) {
-          _controller.stopCaptureImage(); //so there won't be multiple images
+          _controller.doneCapturingImage(); //so there won't be multiple images
           XFile file = XFile(_canvasElement.toDataUrl('image/jpeg', 1));
           widget.onCaptureImage(file);
         }

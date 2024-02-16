@@ -32,12 +32,16 @@ class CameraController extends ChangeNotifier {
   /// Capture an image from the QR scanner video feed.
   /// This will trigger the [onCaptureImage] callback in the [FlutterWebQrcodeScanner] widget.
   void captureImage() {
+    _isRecording = true;
     _isCapturingImage = true;
     notifyListeners();
   }
 
-  void stopCaptureImage() {
+  /// Stop attempting to capture an image from the QR scanner video feed.
+  /// Normally only called by the [FlutterWebQrcodeScanner] widget once an image has been captured.
+  void doneCapturingImage() {
     _isCapturingImage = false;
+    notifyListeners();
   }
 
   get isCapturingImage => _isCapturingImage;
