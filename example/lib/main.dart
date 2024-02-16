@@ -1,3 +1,5 @@
+import 'dart:typed_data';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_web_qrcode_scanner/flutter_web_qrcode_scanner.dart';
 import 'package:flutter_web_qrcode_scanner_example/full_example.dart';
@@ -61,6 +63,7 @@ class _AutoScanExampleState extends State<AutoScanExample> {
           onPermissionDeniedError: () {
             //show alert dialog or something
           },
+          onCaptureImage: (Uint8List imageAsBytes) {},
         ),
       ],
     );

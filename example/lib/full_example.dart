@@ -1,3 +1,5 @@
+import 'dart:typed_data';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_web_qrcode_scanner/flutter_web_qrcode_scanner.dart';
 
@@ -12,6 +14,7 @@ class _FullExampleState extends State<FullExample> {
   late CameraController _controller;
   List<String> resultList = [];
   int resultSum = 0;
+  Uint8List? capturedImage;
   @override
   void initState() {
     super.initState();
@@ -45,18 +48,42 @@ class _FullExampleState extends State<FullExample> {
                       )),
             ),
             Center(
-              child: FlutterWebQrcodeScanner(
-                width: MediaQuery.of(context).size.width * 0.4,
-                height: MediaQuery.of(context).size.height * 0.4,
-                controller: _controller,
-                cameraDirection: CameraDirection.back,
-                onGetResult: (String data) {
-                  resultSum++;
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  FlutterWebQrcodeScanner(
+                    width: MediaQuery.of(context).size.width * 0.4,
+                    height: MediaQuery.of(context).size.height * 0.4,
+                    controller: _controller,
+                    cameraDirection: CameraDirection.back,
+                    onGetResult: (String data) {
+                      resultSum++;
 
-                  resultList.add(
-                      "result number " + resultSum.toString() + "  " + data);
-                  setSta(() {});
-                },
+                      resultList.add("result number " +
+                          resultSum.toString() +
+                          "  " +
+                          data);
+                      setSta(() {});
+                    },
+                    onCaptureImage: (Uint8List imageAsBytes) {
+                      capturedImage = imageAsBytes;
+                      setSta(() {});
+                      print("image captured");
+                    },
+                  ),
+                  const SizedBox(width: 20),
+                  SizedBox(
+                    width: MediaQuery.of(context).size.width * 0.4,
+                    height: MediaQuery.of(context).size.height * 0.4,
+                    child: Center(
+                      child: capturedImage == null
+                          ? const Text("no image captured")
+                          : Image.memory(
+                              capturedImage!,
+                            ),
+                    ),
+                  ),
+                ],
               ),
             ),
             Center(
@@ -76,6 +103,23 @@ class _FullExampleState extends State<FullExample> {
                     },
                     title: "stop camera",
                     enterColor: Colors.red,
+                  ),
+                ],
+              ),
+            ),
+            Center(
+              child: Row(
+                mainAxisSize: MainAxisSize.min,
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Button(
+                    onTap: () {
+                      capturedImage = null;
+                      setSta(() {});
+                      _controller.captureImage();
+                    },
+                    title: "take picture",
+                    enterColor: Colors.blue,
                   ),
                 ],
               ),

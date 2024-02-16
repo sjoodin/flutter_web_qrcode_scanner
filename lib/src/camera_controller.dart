@@ -26,4 +26,17 @@ class CameraController extends ChangeNotifier {
       notifyListeners();
     }
   }
+
+  bool _isCapturingImage = false;
+
+  void captureImage() {
+    _isCapturingImage = true;
+    notifyListeners();
+  }
+
+  void stopCaptureImage() {
+    _isCapturingImage = false;
+  }
+
+  get isCapturingImage => _isCapturingImage;
 }

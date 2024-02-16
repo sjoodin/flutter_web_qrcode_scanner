@@ -1,6 +1,8 @@
 import 'dart:html';
+import 'dart:typed_data';
 import 'dart:ui' as ui;
 import 'dart:js' as js;
+import 'package:cross_file/cross_file.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 
@@ -16,6 +18,7 @@ class FlutterWebQrcodeScanner extends StatefulWidget {
     Key? key,
     this.controller,
     required this.onGetResult,
+    required this.onCaptureImage,
     this.onError,
     this.onPermissionDeniedError,
     this.placeholder,
@@ -44,6 +47,8 @@ class FlutterWebQrcodeScanner extends StatefulWidget {
   ///stop video stream on getting first result
   final bool? stopOnFirstResult;
 
+  final Function(Uint8List imageAsBytes)? onCaptureImage;
+
   /// *
   /// class DomException
   /// *
@@ -62,6 +67,7 @@ class _WebcamPageState extends State<FlutterWebQrcodeScanner> {
   late final CameraController _controller;
   CanvasRenderingContext2D? _canvas;
   String? _result;
+
   late MediaStream? _stream;
   bool _stopDecoding = false;
 
@@ -191,7 +197,18 @@ class _WebcamPageState extends State<FlutterWebQrcodeScanner> {
         _canvasElement.width ?? 100,
         _canvasElement.height ?? 100,
       );
+
       if (imageData is ImageData) {
+        if (_controller.isCapturingImage && widget.onCaptureImage != null) {
+          _controller.stopCaptureImage(); //so there won't be multiple images
+          print('image with ${imageData.data.length} bytes');
+          XFile file = XFile(_canvasElement.toDataUrl('image/jpeg', 1));
+          file.readAsBytes().then((value) {
+            print('read image with ${value.length} bytes');
+            widget.onCaptureImage!(value);
+          });
+        }
+
         try {
           js.JsObject? code = _jsQR(
             imageData.data,
